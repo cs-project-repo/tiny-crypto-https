@@ -1,0 +1,169 @@
+Fantom:
+type = "directrequest"
+schemaVersion = 1
+name = "Fantom Testnet"
+externalJobID = "4014b430-14a4-4590-adc2-079b91924686"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0xb80989b68bD5105de6E57f4340C1ab54863654c3"
+evmChainID = "4002"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    
+decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+    
+decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    
+fetch        [type=bridge name="proof-uniqueness" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"proof\\": $(decode_cbor.proof)}}"]
+    
+parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    
+encode_data  [type=ethabiencode abi="(bool proof)" data="{ \\"proof\\": $(parse)}"]
+    
+encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    
+submit_tx    [type=ethtx evmChainID="4002" to="0xb80989b68bD5105de6E57f4340C1ab54863654c3" data="$(encode_tx)"]
+    
+decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
+
+Fuji:
+type = "directrequest"
+schemaVersion = 1
+name = "Fuji"
+externalJobID = "f24ae950-aff6-4885-a743-ce705c676bd8"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x5B8A4f446bf7d4c5fb12418C39C5EaFb44311845"
+evmChainID = "43113"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    
+decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+    
+decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    
+fetch        [type=bridge name="proof-uniqueness" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"proof\\": $(decode_cbor.proof)}}"]
+    
+parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    
+encode_data  [type=ethabiencode abi="(bool proof)" data="{ \\"proof\\": $(parse)}"]
+    
+encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    
+submit_tx    [type=ethtx evmChainID="43113" to="0x5B8A4f446bf7d4c5fb12418C39C5EaFb44311845" data="$(encode_tx)"]
+    
+decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
+
+Binance:
+type = "directrequest"
+schemaVersion = 1
+name = "Binance Testnet"
+externalJobID = "3875912f-4759-46fd-8ead-b0fb95c8184b"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0xb80989b68bD5105de6E57f4340C1ab54863654c3"
+evmChainID = "97"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    
+decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+    
+decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    
+fetch        [type=bridge name="proof-uniqueness" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"proof\\": $(decode_cbor.proof)}}"]
+    
+parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    
+encode_data  [type=ethabiencode abi="(bool proof)" data="{ \\"proof\\": $(parse)}"]
+    
+encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    
+submit_tx    [type=ethtx evmChainID="97" to="0xb80989b68bD5105de6E57f4340C1ab54863654c3" data="$(encode_tx)"]
+    
+decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
+
+Georli:
+type = "directrequest"
+schemaVersion = 1
+name = "Goerli"
+externalJobID = "89e860e5-d51b-4075-a753-ca5f3d250577"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x29fdbBab1812644D9c440Bfd0d1778c417e566c0"
+evmChainID = "5"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    
+decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+    
+decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    
+fetch        [type=bridge name="proof-uniqueness" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"proof\\": $(decode_cbor.proof)}}"]
+    
+parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    
+encode_data  [type=ethabiencode abi="(bool proof)" data="{ \\"proof\\": $(parse)}"]
+    
+encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    
+submit_tx    [type=ethtx evmChainID="5" to="0x29fdbBab1812644D9c440Bfd0d1778c417e566c0" data="$(encode_tx)"]
+    
+decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
+
+Mumbai: 
+type = "directrequest"
+schemaVersion = 1
+name = "Mumbai"
+externalJobID = "da9200ff-db4a-417c-9bab-104cb7ee5fc4"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x2834f8d34ce6B6f2959E2e83C2D17341e047DA01"
+evmChainID = "80001"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    
+decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+    
+decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    
+fetch        [type=bridge name="proof-uniqueness" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"proof\\": $(decode_cbor.proof)}}"]
+    
+parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    
+encode_data  [type=ethabiencode abi="(bool proof)" data="{ \\"proof\\": $(parse)}"]
+    
+encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes32 data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    
+submit_tx    [type=ethtx evmChainID="80001" to="0x2834f8d34ce6B6f2959E2e83C2D17341e047DA01" data="$(encode_tx)"]
+    
+decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
