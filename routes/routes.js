@@ -31,7 +31,7 @@ const zkpWithdraw = require('../zkp/merkleTree.js')
 //     res.status(200).json({"message": data.length})
 // }) 
 
-router.post('/deposit', /*chainScannerFunc,*/ async (req, res) => {
+router.post('/deposit', chainScannerFunc, async (req, res) => {
     try{
         // const loginReq = { user: IMMUDB_USER, password: IMMUDB_PWD }
         // await cl.login(loginReq)
