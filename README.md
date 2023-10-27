@@ -20,6 +20,7 @@ To get started with this project, follow these steps:
 
 You can use the zkpWithdraw function to anonymize your cryptocurrency transactions. Here's an example of how to use it:
 
+Usage
 ```
 const leaves = [/* List of leaves */];
 const leaf = /* Your leaf */;
