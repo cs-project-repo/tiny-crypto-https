@@ -1,10 +1,10 @@
-Tiny Crypto Token/Coin Anonymizer with Merkle Trees
+# Tiny Crypto Token/Coin Anonymizer with Merkle Trees
 
-Introduction
+## Introduction
 
 Welcome to the Tiny Crypto Token/coin anonymizer repository. This project aims to provide a solution for anonymizing cryptocurrency transactions using Merkle Trees. By following the code provided, you can leverage this tool to enhance privacy and security in your cryptocurrency transactions.
 
-Features
+## Features
 
 Anonymize cryptocurrency transactions.
 Utilizes Merkle Trees for transaction validation.
@@ -22,7 +22,7 @@ To get started with this project, follow these steps:
 
 You can use the zkpWithdraw function to anonymize your cryptocurrency transactions. Here's an example of how to use it:
 
-Usage
+## Usage
 
 ```
 const leaves = [/* List of leaves */];
